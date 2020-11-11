@@ -1,0 +1,15 @@
+{% extends "portal_v1/base.html" %}
+
+{% block content %}
+
+    {% include "messages.html" %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <label for="username_input">Username</label>
+        <input type="text" name="username" id="username_input">
+        <label for="password_input">Password</label>
+        <input type="password" name="password" id="password_input">
+        <input type="submit" value="zaloguj">
+    </form>
+{% endblock %}

@@ -1,0 +1,137 @@
+body {
+  background: #fafafa;
+  color: #333333;
+}
+
+
+.page-header {
+  background-image: url("wood.jpeg");
+  margin-top: 0;
+  padding: 60px 20px 10px 30px;
+}
+
+.page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
+  font-family: 'Montserrat', sans-serif;
+  color: #000000;
+  font-size: 36pt;
+  text-decoration: none;
+}
+
+h2, h3, h4, h5 {
+  font-family: 'Lato', sans-serif;
+  font-size: large;
+}
+
+ul {
+  margin: 0;
+}
+
+.site-header .navbar-nav .nav-link {
+  color: #cbd5db;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+  color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-link.active {
+  font-weight: 500;
+}
+
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #aca7a7;
+  border-radius: 3px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  -ms-flex-align: center;
+}
+
+.article-title {
+  color: #444444;
+}
+
+a.article-title:hover {
+  color: #428bca;
+  text-decoration: none;
+}
+
+.article-content {
+  white-space: pre-line;
+}
+
+.article-img {
+  height: 65px;
+  width: 65px;
+  margin-right: 16px;
+}
+
+.article-metadata {
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #e3e3e3
+}
+
+.article-metadata a:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+.article-svg {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+}
+
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
+
+.account-heading {
+  font-size: 2.5rem;
+}
+
+/* !* Style the navigation bar *!*/
+/*.navbar {*/
+/*  width: 100%;*/
+/*  background-color: #161515;*/
+/*}*/
+
+.navbar a {
+  float: left;
+  text-align: left;
+  padding: 2px;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.navbar-nav > li{
+  margin-left: 30px;
+}
+
+.dropdown-item:hover {
+  margin-left: 3px;
+  background-color: #bfbfbd;
+}
+/* !*Navbar links on mouse-over *!*/
+/*.navbar a:hover {*/
+/*  background-color: #403f3f;*/
+/*}*/
+
+/* Current/active navbar link */
+.active {
+  background-color: #1d1f1d;
+}
+
+/* Add responsiveness - will automatically display the navbar vertically instead of horizontally on screens less than 500 pixels */
+@media screen and (max-width: 500px) {
+  .navbar a {
+    float: none;
+    display: block;
+  }
+}
+

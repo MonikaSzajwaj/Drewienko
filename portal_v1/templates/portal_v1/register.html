@@ -1,0 +1,12 @@
+{% extends "portal_v1/base.html" %}
+
+{% block content %}
+
+    {% include "messages.html" %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="rejestruj">
+    </form>
+{% endblock %}
