@@ -37,7 +37,7 @@ class RegisterView(CreateView):
         return super(RegisterView, self).form_valid(form)
 
     def get_success_url(self) -> str:
-        return reverse("index")
+        return reverse("announcement-home")
 
 
 class LoginView(View):
@@ -45,7 +45,7 @@ class LoginView(View):
 
     def get(self, request):
         if request.user.is_authenticated:
-            return redirect("index")
+            return redirect("announcement-home")
         return render(request, self.template_name, {})
 
     def post(self, request):
@@ -57,7 +57,7 @@ class LoginView(View):
 
         if user:
             login(request, user)
-            return redirect("index")
+            return redirect("announcement-home")
 
         messages.error(request, "Nie ma takiego użytkownika")
         return redirect("user:login")
@@ -65,4 +65,4 @@ class LoginView(View):
 
 def logout_view(request):
     logout(request)
-    return redirect("index")
+    return redirect("announcement-home")
