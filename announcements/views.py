@@ -43,6 +43,7 @@ class AnnouncementUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView
 
 class AnnouncementDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Announcement
+    template_name = "portal_v1/announcement_confirm_delete.html"
     success_url = "/"
 
     def test_func(self):
