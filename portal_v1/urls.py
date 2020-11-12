@@ -1,7 +1,7 @@
 from django.urls import path
 from announcements.views import AnnouncementCreateView, AnnouncementListView, AnnouncementDetailView, \
     AnnouncementUpdateView, AnnouncementDeleteView
-from users.views import LoginView, logout_view, RegisterView, ChangePassword
+from users.views import LoginView, logout_view, RegisterView, ChangePassword, UserProfileView
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -12,6 +12,7 @@ urlpatterns = [
     path('announcements/annouc-<int:pk>/update/', AnnouncementUpdateView.as_view(), name='announcement-update'),
     path('announcements/annouc-<int:pk>/delete/', AnnouncementDeleteView.as_view(), name='announcement-delete'),
     path('announcements/new/', AnnouncementCreateView.as_view(), name='announcement-create'),
+    path('users/<int:pk>/', UserProfileView.as_view(), name='user-profile'),
     path('login/', LoginView.as_view(), name="login"),
     path("logout/", logout_view, name="logout"),
     path("register/", RegisterView.as_view(), name="register"),

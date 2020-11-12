@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.urls import reverse
 
 
 class UserProfile(models.Model):
@@ -13,9 +14,13 @@ class UserProfile(models.Model):
     city = models.CharField("City", max_length=1024)
     avatar = models.ImageField(upload_to='avatars', blank=True)
 
+
     class Meta:
         verbose_name = "Użytkownik"
         verbose_name_plural = "Użytkownicy"
+
+    def get_absolute_url(self):
+        return reverse('user-profile', kwargs={'pk': self.pk})
 
     """I defined signals so our Profile model will be automatically 
     created/updated when we create/update User instances."""

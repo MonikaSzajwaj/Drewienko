@@ -1,0 +1,14 @@
+{% extends "portal_v1/base.html" %}
+{% load crispy_forms_tags %}
+    {% if object.pk == user.pk %}
+                 {% block left-side %}
+                     <ul>
+                        <li>Edytuj profil</li>
+                        <li>Dodaj ogłoszenie</li>
+                        <li>Moje ogłoszenia</li>
+                     </ul>
+                 {% endblock %}
+    {% endif %}
+{% block content %}
+    <div class="article-title"></div>
+{%  endblock %}

@@ -2,10 +2,10 @@
 {% block content %}
     {% for ann_item in ann_items %}
         <article class="media content-section">
-            <img class="rounded-circle article-img" src="{{ ann_item.picture.url }}">
+            <img class="article-img" style="width:30%" src="{{ ann_item.picture.url }}">
             <div class="media-body">
                 <div class="article-metadata">
-                    <a class="mr-2" href="#">{{ ann_item.author }}</a>
+                    <a class="mr-2" href="{% url 'user-profile' ann_item.author.id %}">{{ ann_item.author }}</a>
                     <small class="text-muted">{{ ann_item.date_posted|date:"F d, Y"}}</small>
                 </div>
                 <h2><a class="article-title" href="{% url 'announcement-detail' ann_item.id %}">{{ ann_item.title }}</a></h2>
