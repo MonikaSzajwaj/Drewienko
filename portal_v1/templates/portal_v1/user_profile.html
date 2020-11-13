@@ -14,7 +14,7 @@
 {% block content %}
     <article class="media content-section">
     <div class="article-title"></div>
-        <img class="rounded-circle" style="width:10%; margin-right: 10px" src="{{ user.avatar.url|default:"static/default-avatar.jpg"  }}">
+        <img class="rounded-circle" style="width:10%; margin-right: 10px" src="{{ object.userprofile.avatar.url }}">
         <div class="media-body">
             <div class="article-metadata">
                 <h2 class="article-title">Profil użytkownika: <inf class="text-info">{{ object.username }}</inf></h2>

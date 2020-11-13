@@ -12,7 +12,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)
     city = models.CharField("City", max_length=1024)
-    avatar = models.ImageField(upload_to='avatars', blank=True, default=None)
+    avatar = models.ImageField(upload_to='media_files/avatars', default="default-avatar.jpg")
 
     class Meta:
         verbose_name = "Użytkownik"
