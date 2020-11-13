@@ -8,7 +8,7 @@
             {% csrf_token %}
             <h2><b>Rejestracja</b></h2>
             <p>Uzupełnij poniższe pola by dokonać rejestracji.</p>
-            {{ form }}
+            {{ form.as_p }}
 {#            <div>#}
 {#                <label for="username_input">Nazwa użytkownika: </label>#}
 {#                <input type="text" name="username" id="username_input" value="{{ username }}">#}
@@ -25,7 +25,7 @@
 {#                <label for="password2_input">Powtórz hasło: </label>#}
 {#                <input type="password" name="password2" id="password2_input" value="{{ password2 }}">#}
 {#            </div>#}
-            <input type="submit" value="rejestruj">
+            <input type="submit" value="Rejestruj">
         </form>
     </div>
 {% endblock %}

@@ -3,10 +3,8 @@ body {
   color: #333333;
 }
 
-
 .page-header {
   background-image: url("wood.jpeg");
-  margin-top: 0;
   padding: 60px 20px 10px 30px;
 }
 
@@ -16,6 +14,7 @@ body {
   font-size: 36pt;
   text-decoration: none;
 }
+
 
 h2, h3, h4, h5 {
   font-family: 'Lato', sans-serif;

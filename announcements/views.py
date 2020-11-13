@@ -5,6 +5,7 @@ from .models import Announcement
 
 class AnnouncementCreateView(LoginRequiredMixin, CreateView):
     model = Announcement
+    template_name = "portal_v1/announcement_form.html"
     fields = ['title', 'picture', 'content', 'city', 'price', 'category', 'shipping', 'sell_or_exchange']
 
     def form_valid(self, form):
@@ -26,7 +27,7 @@ class AnnouncementDetailView(DetailView):
 
 class AnnouncementUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Announcement
-    fields = ['title', 'picture', 'content', 'city', 'date_posted', 'author', 'price', 'category', 'shipping',
+    fields = ['title', 'picture', 'content', 'city', 'price', 'category', 'shipping',
               'sell_or_exchange']
     template_name = "portal_v1/announcement_form.html"
 

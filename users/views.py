@@ -15,6 +15,7 @@ from .forms import SignUpForm
 class UserProfileView(DetailView):
     model = User
     template_name = "portal_v1/user_profile.html"
+    context_object_name = "user_profile"
 
 
 

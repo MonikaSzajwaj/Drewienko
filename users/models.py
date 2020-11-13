@@ -14,7 +14,6 @@ class UserProfile(models.Model):
     city = models.CharField("City", max_length=1024)
     avatar = models.ImageField(upload_to='avatars', blank=True)
 
-
     class Meta:
         verbose_name = "Użytkownik"
         verbose_name_plural = "Użytkownicy"
