@@ -15,8 +15,8 @@
 {% block content %}
     <article class="media content-section">
     <div class="article-title"></div>
-{% if user.userprofile.avatar %}
-    <img class="rounded-circle" style="width:10%; margin-right: 10px" src="{{ user.userprofile.avatar.url }}">
+{% if object.userprofile.avatar %}
+    <img class="rounded-circle" style="width:10%; margin-right: 10px" src="{{ object.userprofile.avatar.url }}">
 {% else %}
     <img class="rounded-circle" style="width:10%; margin-right: 10px" src="{% static 'default-avatar.jpg' %}">
 {% endif %}
