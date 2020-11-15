@@ -18,7 +18,7 @@
 {% if user.userprofile.avatar %}
     <img class="rounded-circle" style="width:10%; margin-right: 10px" src="{{ user.userprofile.avatar.url }}">
 {% else %}
-    <img class="rounded-circle" style="width:10%; margin-right: 10px" src="{% static 'portal_v1/static/default-avatar.jpg' %}">
+    <img class="rounded-circle" style="width:10%; margin-right: 10px" src="{% static 'default-avatar.jpg' %}">
 {% endif %}
 
         <div class="media-body">
