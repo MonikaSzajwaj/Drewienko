@@ -1,5 +1,5 @@
 {% extends "portal_v1/base.html" %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
 {% block content %}
 
     {% include "messages.html" %}
@@ -8,7 +8,7 @@
             {% csrf_token %}
             <h2><b>Rejestracja</b></h2>
             <p>Uzupełnij poniższe pola by dokonać rejestracji.</p>
-            {{ form.as_p }}
+            {{ form|crispy }}
 {#            <div>#}
 {#                <label for="username_input">Nazwa użytkownika: </label>#}
 {#                <input type="text" name="username" id="username_input" value="{{ username }}">#}
