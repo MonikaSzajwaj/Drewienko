@@ -13,7 +13,7 @@ from django.utils import timezone
 
 class Announcement(models.Model):
     title = models.CharField(verbose_name="Tytuł", max_length=100)
-    picture = models.ImageField(verbose_name="Zdjęcie", upload_to='annouc_photos')
+    picture = models.ImageField(verbose_name="Zdjęcie", upload_to='announc_photos')
     content = models.TextField(verbose_name="Opis", )
     city = models.CharField(verbose_name="Miasto", max_length=100)
     date_posted = models.DateTimeField(verbose_name="Data opublikowania", default=timezone.now)
