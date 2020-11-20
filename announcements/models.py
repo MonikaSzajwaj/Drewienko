@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 
+
 # class Category(models.Model):
 #     # name = models.CharField(choices=((1, 'szafy'), (2, 'komody'), (3, 'sofy'),
 #     (4, 'zestawy wypoczynkowe'), (5, 'meblościanki'), (6, 'ławy i stoliki'), (7, 'krzesła')), max_length=100)

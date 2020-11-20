@@ -2,6 +2,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from .models import Announcement
 from django.contrib.auth.models import User
+from django.http import JsonResponse
+from .models import Announcement
+
 
 class AnnouncementCreateView(LoginRequiredMixin, CreateView):
     model = Announcement
@@ -60,3 +63,19 @@ class AnnouncementDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView
         if self.request.user == ann.author:
             return True
         return False
+
+
+def ajax_announcement_highlighting(request):
+    is_highlighted = request.GET.get('is_highlighted', False)
+    announcement_id = request.GET.get('announcement_id', False)
+    announcement = Announcement.objects.get(pk = announcement_id)
+    try:
+        announcement.is_highlighted = is_highlighted
+        announcement.save()
+        return  JsonResponse({'success': True})
+    except Exception as e:
+        return JsonResponse({"success": False})
+
+
+
+
