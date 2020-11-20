@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from .models import Announcement
-
+from django.contrib.auth.models import User
 
 class AnnouncementCreateView(LoginRequiredMixin, CreateView):
     model = Announcement
@@ -19,6 +19,14 @@ class AnnouncementListView(ListView):
     context_object_name = 'ann_items'
     ordering = ['-date_posted']
 
+class MyAnnouncementListView(ListView):
+    model = Announcement
+    template_name = 'portal_v1/my_announcements.html'
+    context_object_name = 'my_ann_items'
+    ordering = ['-date_posted']
+
+    def get_queryset(self):
+        return Announcement.objects.filter(author=self.request.user )
 
 class AnnouncementDetailView(DetailView):
     model = Announcement

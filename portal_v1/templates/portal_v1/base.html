@@ -61,7 +61,7 @@
                         {% endif %}
                         {% if user.is_authenticated %}
                         <a class="dropdown-item" href="{% url "user-profile" user.pk %}">Mój profil <span class="fas fa-user-secret"></span></a>
-                        <a class="dropdown-item" href="/logout">Wyloguj <span class="fas fa-sign-out-alt"></span></a>
+                        <a class="dropdown-item" href="{% url 'logout' %}">Wyloguj <span class="fas fa-sign-out-alt"></span></a>
                         {% endif %}
                     </div>
                 </li>
