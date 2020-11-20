@@ -72,9 +72,9 @@ class LoginView(View):
         return redirect("login")
 
 
-def logout_view(request):
-    logout(request)
-    return redirect("announcement-home")
+# def logout_view(request):
+#     logout(request)
+#     return redirect("logout")
 
 # @receiver(user_logged_out)
 # def on_user_logged_out(sender, request, **kwargs):
