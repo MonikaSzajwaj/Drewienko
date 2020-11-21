@@ -17,7 +17,7 @@
                     {% endif %}
                 </div>
                 <h2 class="article-title" style="font-size: xx-large">{{ object.title }}</h2>
-                    <p>{{ object.content }}</p>
+                    <p class="article-content">{{ object.content }}</p>
         {% else %}
             <img class="article-img rounded" style="width:30%; margin-right: 10px " src="{{ object.picture.url }}">
             <div class="media-body">
@@ -34,7 +34,7 @@
                 {% endif %}
             </div>
             <h2 class="article-title" style="font-size: xx-large">{{ object.title }}</h2>
-            <p>{{ object.content }}</p>
+            <p class="article-content">{{ object.content }}</p>
         {% endif %}
         </div>
     </article>
