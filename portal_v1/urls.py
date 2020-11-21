@@ -20,7 +20,7 @@ urlpatterns = [
     path("logout/", auth_views.LogoutView.as_view(template_name = 'portal_v1/logout.html'), name="logout"),
     path("register/", RegisterView.as_view(), name="register"),
     path("change_password/", ChangePassword.as_view(), name="change_password"),
-    path(r'^ajax/highlight/$', ann_views.ajax_announcement_highlighting, name='ajax_highlight')
+    path('ajax/highlight/', ann_views.ajax_announcement_highlighting, name='ajax_highlight')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

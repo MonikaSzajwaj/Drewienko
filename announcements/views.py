@@ -65,16 +65,16 @@ class AnnouncementDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView
         return False
 
 
+
 def ajax_announcement_highlighting(request):
-    is_highlighted = request.GET.get('is_highlighted', False)
-    announcement_id = request.GET.get('announcement_id', False)
-    announcement = Announcement.objects.get(pk = announcement_id)
     try:
-        announcement.is_highlighted = is_highlighted
+        announcement_id = request.POST.get('announcement_id', False)
+        announcement = Announcement.objects.get(pk=announcement_id)
+        announcement.is_highlighted = True
         announcement.save()
-        return  JsonResponse({'success': True})
+        return JsonResponse({'success': True})
     except Exception as e:
-        return JsonResponse({"success": False})
+        return JsonResponse({'success': False})
 
 
 

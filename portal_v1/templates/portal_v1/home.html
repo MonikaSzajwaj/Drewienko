@@ -1,16 +1,34 @@
 {% extends "portal_v1/base.html" %}
 {% block content %}
     {% for ann_item in ann_items %}
-        <article class="media content-section">
-            <img class="article-img rounded" style="width:20%; margin-right: 10px" src="{{ ann_item.picture.url }}">
-            <div class="media-body">
-                <div class="article-metadata">
-                    <a class="mr-2" href="{% url 'user-profile' ann_item.author.id %}">{{ ann_item.author }}</a>
-                    <small class="text-muted">{{ ann_item.date_posted|date:"F d, Y"}}</small>
+        {% if ann_item.is_highlighted %}
+             <article class="media content-section" style="background-color: #FFFFE0">
+                <img class="article-img rounded" style="width:20%; margin-right: 10px" src="{{ ann_item.picture.url }}">
+                <div class="media-body">
+                    <div class="article-metadata">
+                        <a class="mr-2" href="{% url 'user-profile' ann_item.author.id %}">{{ ann_item.author }}</a>
+                        <small class="text-muted">{{ ann_item.date_posted|date:"F d, Y"}}</small>
+                    </div>
+                    <h2><a class="article-title" style="font-size: xx-large" href="{% url 'announcement-detail' ann_item.id %}">{{ ann_item.title }}</a></h2>
+                    <p class="article-content">{{ ann_item.content }}</p>
                 </div>
-                <h2><a class="article-title" href="{% url 'announcement-detail' ann_item.id %}">{{ ann_item.title }}</a></h2>
-                <p class="article-content">{{ ann_item.content }}</p>
-            </div>
-        </article>
+            </article>
+        {% endif %}
     {%endfor%}
+    {% for ann_item in ann_items %}
+        {% if not ann_item.is_highlighted %}
+            <article class="media content-section">
+                <img class="article-img rounded" style="width:20%; margin-right: 10px" src="{{ ann_item.picture.url }}">
+                <div class="media-body">
+                    <div class="article-metadata">
+                        <a class="mr-2" href="{% url 'user-profile' ann_item.author.id %}">{{ ann_item.author }}</a>
+                        <small class="text-muted">{{ ann_item.date_posted|date:"F d, Y" }}</small>
+                    </div>
+                    <h2><a class="article-title" style="font-size: x-large"
+                           href="{% url 'announcement-detail' ann_item.id %}">{{ ann_item.title }}</a></h2>
+                    <p class="article-content">{{ ann_item.content }}</p>
+                </div>
+            </article>
+        {% endif %}
+    {% endfor %}
 {% endblock content%}

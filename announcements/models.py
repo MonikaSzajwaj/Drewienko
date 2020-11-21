@@ -30,7 +30,7 @@ class Announcement(models.Model):
                                         choices=(('na sprzedaż', 'na sprzedaż'), ('na wymianę', 'na wymianę'),
                                                  ('na sprzedaż lub wymianę', 'na sprzedaż lub wymianę')),
                                         max_length=100)
-    #is_highlighted = models.BooleanField(verbose_name="czy ogłoszenie jest promowane?", default=False)
+    is_highlighted = models.BooleanField(verbose_name="czy ogłoszenie jest promowane?", default=False)
 
     def __str__(self):
         return self.title
