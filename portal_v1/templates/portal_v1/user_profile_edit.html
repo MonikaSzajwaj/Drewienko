@@ -1,10 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "portal_v1/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="form-group"></fieldset>
+            <h2><b>Edytuj profil</b></h2>
+                {{ user_change|crispy }}
+                {{ user_profile_edit|crispy }}
+                <div class="form-group" style="margin-top: 10px">
+                    <button class="btn btn-outline-info" type="submit">Zapisz</button>
+                </div>
+        </fieldset>
+    </form>
+    <a href="{% url 'change_password' %} ">Zmień hasło</a>
+{% endblock %}

@@ -17,6 +17,7 @@
                 <p>{{ object.content }}</p>
         </div>
     </article>
+    <div class="label">Telefon do użytkownika: {{ object.author.userprofile.phone_number }}</div>
 {% endblock %}
 {% block right-side %}
     <article class="side-content" style="text-align: left">
