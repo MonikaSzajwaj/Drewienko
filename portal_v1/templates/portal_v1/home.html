@@ -4,7 +4,7 @@
     <a><font color=grey></br>Najnowsze ogłoszenia:</font></a>
     {% for ann_item in ann_items|slice:":7" %}
         {% if ann_item.is_highlighted %}
-             <article class="media content-section" style="background-color: #FFFFE0">
+             <article class="media content-section" style="background-color: #FDF5E6">
                 <img class="article-img rounded" style="width:20%; margin-right: 10px" src="{{ ann_item.picture.url }}">
                 <div class="media-body">
                     <div class="article-metadata">
@@ -13,7 +13,7 @@
                     </div>
                     <h2><a class="article-title" style="font-size: xx-large" href="{% url 'announcement-detail' ann_item.id %}">{{ ann_item.title }}</a></h2>
                     <h2><a class="article-title"><font color=#cc3333><b>{{ ann_item.price }} zł</b></font></a></h2>
-                    <p class="article-content">{{ ann_item.content|truncatechars:170}}...</p>
+                    <p class="article-content">{{ ann_item.content|truncatechars:170}}</p>
                 </div>
             </article>
         {% endif %}
@@ -30,7 +30,7 @@
                     <h2><a class="article-title" style="font-size: x-large"
                            href="{% url 'announcement-detail' ann_item.id %}">{{ ann_item.title }}</a></h2>
                     <h2><a class="article-title"><font color=#cc3333><b>{{ ann_item.price }} zł</b></font></a></h2>
-                    <p class="article-content">{{ ann_item.content|truncatechars:170}}...</p>
+                    <p class="article-content">{{ ann_item.content|truncatechars:50}}</p>
                 </div>
             </article>
         {% endif %}
