@@ -23,8 +23,8 @@ urlpatterns = [
     path("logout/", logout_view, name="logout"),
     path("register/", user_views.register, name="register"),
     path("change_password/", ChangePassword.as_view(), name="change_password"),
-    path("search/", SearchResultsView.as_view(), name='search_result')
-    path('ajax/highlight/', ann_views.ajax_announcement_highlighting, name='ajax_highlight')
+    path("search/", SearchResultsView.as_view(), name='search_result'),
+    path('ajax/highlight/', ann_views.ajax_announcement_highlighting, name='ajax_highlight'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
