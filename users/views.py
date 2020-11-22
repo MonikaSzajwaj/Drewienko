@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.signals import user_logged_out, user_logged_in
 from django.dispatch import receiver
 from django.contrib.auth.forms import PasswordChangeForm, UserChangeForm
@@ -12,49 +13,49 @@ from django.views.generic import CreateView, FormView, DetailView, TemplateView,
 from .forms import SignUpForm, UserEditForm, UserProfileEditForm
 from .models import User, UserProfile
 
-class UserEditView(FormView, LoginRequiredMixin):
-    template_name = "portal_v1/user_profile_edit.html"
-    form_class = UserChangeForm
+# class UserEditView(FormView, LoginRequiredMixin):
+#     template_name = "portal_v1/user_profile_edit.html"
+#     form_class = UserChangeForm
+#
+#     def post(self, request, *args, **kwargs):
+#         user_change = self.form_class(request.POST)
+#         if user_change.is_valid():
+#             user_change.save()
+#             return self.render_to_response(self.get_context_data(success=True))
+#         else:
+#             return self.render_to_response(self.get_context_data(user_change=user_change))
 
-    def post(self, request, *args, **kwargs):
-        user_change = self.form_class(request.POST)
-        if user_change.is_valid():
-            user_change.save()
-            return self.render_to_response(self.get_context_data(success=True))
-        else:
-            return self.render_to_response(self.get_context_data(user_change=user_change))
 
-
-class UserProfileEditView(FormView, LoginRequiredMixin):
-    template_name = "portal_v1/user_profile_edit.html"
-    form_class = UserProfileEditForm
-
-    def post(self, request, *args, **kwargs):
-        user_profile_edit = self.form_class(request.POST)
-        if user_profile_edit.is_valid():
-            user_profile_edit.save()
-            return self.render_to_response(self.get_context_data(success=True))
-        else:
-            return self.render_to_response(self.get_context_data(user_profile_edit=user_profile_edit))
+# class UserProfileEditView(FormView, LoginRequiredMixin):
+#     template_name = "portal_v1/user_profile_edit.html"
+#     form_class = UserProfileEditForm
+#
+#     def post(self, request, *args, **kwargs):
+#         user_profile_edit = self.form_class(request.POST)
+#         if user_profile_edit.is_valid():
+#             user_profile_edit.save()
+#             return self.render_to_response(self.get_context_data(success=True))
+#         else:
+#             return self.render_to_response(self.get_context_data(user_profile_edit=user_profile_edit))
 
 
 class UserProfileView(DetailView):
-    model = User
+    model = UserProfile
     template_name = "portal_v1/user_profile.html"
-    context_object_name = "user_profile"
+    context_object_name = "profile"
 
 
-class UserProfileEdit(TemplateView):
-    template_name = "portal_v1/user_profile_edit.html"
-    success_url = "user-profile-edit"
-
-    def get(self, request, *args, **kwargs):
-        user_change = UserEditForm(self.request.GET or None)
-        user_profile_edit = UserProfileEditForm(self.request.GET or None)
-        context = self.get_context_data(**kwargs)
-        context['user_change'] = user_change
-        context['user_profile_edit'] = user_profile_edit
-        return self.render_to_response(context)
+# class UserProfileEdit(TemplateView):
+#     template_name = "portal_v1/user_profile_edit.html"
+#     success_url = "user-profile-edit"
+#
+#     def get(self, request, *args, **kwargs):
+#         user_change = UserEditForm(self.request.GET or None)
+#         user_profile_edit = UserProfileEditForm(self.request.GET or None)
+#         context = self.get_context_data(**kwargs)
+#         context['user_change'] = user_change
+#         context['user_profile_edit'] = user_profile_edit
+#         return self.render_to_response(context)
 
 
 class ChangePassword(FormView, LoginRequiredMixin):
@@ -72,19 +73,30 @@ class ChangePassword(FormView, LoginRequiredMixin):
         return redirect(reverse('login'))
 
     def get_success_url(self) -> str:
-        return reverse("user-profile")
+        return reverse("profile")
 
+def register(request):
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Użytkownik zarejestrowany. Możesz się zalogować')
+            return redirect('login')
+    else:
+        form = SignUpForm()
+    return render (request, 'portal_v1/register.html', {'form': form})
 
-class RegisterView(CreateView):
-    template_name = "portal_v1/register.html"
-    form_class = SignUpForm
-
-    def form_valid(self, form):
-        messages.success(self.request, "Użytkownik zarejestrowany. Możesz się zalogować.")
-        return super(RegisterView, self).form_valid(form)
-
-    def get_success_url(self) -> str:
-        return reverse("login")
+# class RegisterView(CreateView):
+#     template_name = "portal_v1/register.html"
+#     form_class = SignUpForm
+#
+#     def form_valid(self, form):
+#         messages.success(self.request, "Użytkownik zarejestrowany. Możesz się zalogować.")
+#         return super(RegisterView, self).form_valid(form)
+#
+#     def get_success_url(self) -> str:
+#         return reverse("login")
 
 
 class LoginView(View):
@@ -127,3 +139,28 @@ def on_user_logged_in(sender, request, **kwargs):
 # @receiver(user_login_failed)
 # def on_user_login_failed(sender, request, **kwargs):
 #     messages.add_message(request, messages.INFO, 'Błędna nazwa użytkownika lub hasło')
+
+@login_required
+def profile(request):
+    UserProfile.objects.get_or_create(user=request.user)
+    if request.method == "POST":
+        u_form = UserEditForm(request.POST, instance=request.user)
+        p_form = UserProfileEditForm(request.POST,
+                                   request.FILES,
+                                   instance=request.user.userprofile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, f'Twoje konto zostało zaktualizowane')
+            return redirect('profile')
+
+    else:
+        u_form = UserEditForm(instance=request.user)
+        p_form = UserProfileEditForm(instance=request.user.userprofile)
+
+    context = {
+        'u_form': u_form,
+        'p_form': p_form
+    }
+
+    return render(request, 'portal_v1/user_profile.html', context)

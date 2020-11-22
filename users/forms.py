@@ -24,23 +24,31 @@ class SignUpForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ['username', 'email', 'password1', 'password2']
 
 
 class UserProfileEditForm(forms.ModelForm):
+    phone_number = forms.CharField()
+    city = forms.CharField()
+
     class Meta:
         model = UserProfile
-        fields = ('city', 'phone_number', 'avatar')  # Note that we didn't mention user field here.
+        fields = ['phone_number', 'city', 'avatar']  # Note that we didn't mention user field here.
 
-    def save(self, user=None):
-        user_profile = super(UserProfileEditForm, self).save(commit=False)
-        if user:
-            user_profile.user = user
-        user_profile.save()
-        return user_profile
+    # def save(self, user=None):
+    #     user_profile = super(UserProfileEditForm, self).save(commit=False)
+    #     if user:
+    #         user_profile.user = user
+    #     user_profile.save()
+    #     return user_profile
 
 
 class UserEditForm(forms.ModelForm):
+    first_name = forms.CharField()
+    last_name = forms.CharField()
+
+
     class Meta:
         model = User
-        fields = ('first_name', 'last_name')
+        fields = ['first_name', 'last_name']
+
