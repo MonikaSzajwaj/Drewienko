@@ -3,13 +3,17 @@ from django.views.generic import CreateView, ListView, DetailView, UpdateView, D
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Announcement, Category
-
+from django.contrib.auth.models import User
+from django.http import JsonResponse
 
 class Pagination:
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context["q"] = f'&q={self.request.GET.get("q")}'
         return context
+
+
+
 
 
 class AnnouncementCreateView(LoginRequiredMixin, CreateView):
@@ -37,7 +41,6 @@ class AnnouncementListView(ListView):
     context_object_name = 'ann_items'
     ordering = ['-date_posted']
 
-
 class MyAnnouncementListView(ListView):
     model = Announcement
     template_name = 'portal_v1/my_announcements.html'
@@ -46,7 +49,6 @@ class MyAnnouncementListView(ListView):
 
     def get_queryset(self):
         return Announcement.objects.filter(author=self.request.user)
-
 
 class AnnouncementDetailView(DetailView):
     model = Announcement
@@ -108,3 +110,19 @@ def announcements_by_category(request, name):
     all_announcements = Announcement.objects.filter(category__name=name)
     all_categories = Category.objects.all()
     return render(request, 'portal_v1/home.html', {'all_categories': all_categories, 'ann_items': all_announcements})
+
+
+
+def ajax_announcement_highlighting(request):
+    try:
+        announcement_id = request.POST.get('announcement_id', False)
+        announcement = Announcement.objects.get(pk=announcement_id)
+        announcement.is_highlighted = True
+        announcement.save()
+        return JsonResponse({'success': True})
+    except Exception as e:
+        return JsonResponse({'success': False})
+
+
+
+

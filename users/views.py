@@ -45,18 +45,6 @@ class UserProfileView(DetailView):
     context_object_name = "profile"
 
 
-# class UserProfileEdit(TemplateView):
-#     template_name = "portal_v1/user_profile_edit.html"
-#     success_url = "user-profile-edit"
-#
-#     def get(self, request, *args, **kwargs):
-#         user_change = UserEditForm(self.request.GET or None)
-#         user_profile_edit = UserProfileEditForm(self.request.GET or None)
-#         context = self.get_context_data(**kwargs)
-#         context['user_change'] = user_change
-#         context['user_profile_edit'] = user_profile_edit
-#         return self.render_to_response(context)
-
 
 class ChangePassword(FormView, LoginRequiredMixin):
     template_name = "portal_v1/password_change.html"
@@ -97,6 +85,7 @@ def register(request):
 #
 #     def get_success_url(self) -> str:
 #         return reverse("login")
+
 
 
 class LoginView(View):

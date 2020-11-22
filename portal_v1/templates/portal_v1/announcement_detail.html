@@ -1,24 +1,72 @@
 {% extends "portal_v1/base.html" %}
 {% block content %}
-    <article class="media content-section">
-        <img class="article-img rounded" style="width:30%; margin-right: 10px " src="{{ object.picture.url }}">
-        <div class="media-body">
+    <article data-id="{{ object.id }}" class="media content-section">
+        {% csrf_token %}
+        {% if not object.is_highlighted %}
+            <img class="article-img rounded" style="width:30%; margin-right: 10px " src="{{ object.picture.url }}">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <a class="mr-2" href="{% url "user-profile" object.author.pk %}">{{ object.author }}</a>
+                    <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
+                    {% if object.author == user %}
+                        <div>
+                            <a class="btn btn-secondary btn-sm mt-1 mb-1"  href="{% url 'announcement-update' object.id %}">Edytuj</a>
+                            <a class="btn btn-danger btn-sm mt-1 mb-1"  href="{% url 'announcement-delete' object.id %}">Usuń</a>
+                            <span class="btn btn-primary btn-sm mt-1 mb-1 float-right" id="highlight_but">Promuj</span>
+                        </div>
+                    {% endif %}
+                </div>
+                <h2 class="article-title" style="font-size: xx-large">{{ object.title }}</h2>
+                    <p class="article-content">{{ object.content }}</p>
+        {% else %}
+            <img class="article-img rounded" style="width:30%; margin-right: 10px " src="{{ object.picture.url }}">
+            <div class="media-body">
             <div class="article-metadata">
                 <a class="mr-2" href="{% url "user-profile" object.author.pk %}">{{ object.author }}</a>
                 <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
                 {% if object.author == user %}
                     <div>
-                        <a class="btn btn-secondary btn-sm mt-1 mb-1"  href="{% url 'announcement-update' object.id %}">Edytuj</a>
-                        <a class="btn btn-danger btn-sm mt-1 mb-1"  href="{% url 'announcement-delete' object.id %}">Usuń</a>
+                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'announcement-update' object.id %}">Edytuj</a>
+                        <a class="btn btn-danger btn-sm mt-1 mb-1"
+                           href="{% url 'announcement-delete' object.id %}">Usuń</a>
+                        <span class="mt-1 mb-1 float-right" style="color: red">Ogłoszenie promowane</span>
                     </div>
                 {% endif %}
             </div>
-            <h2 class="article-title">{{ object.title }}</h2>
-                <p>{{ object.content }}</p>
+            <h2 class="article-title" style="font-size: xx-large">{{ object.title }}</h2>
+            <p class="article-content">{{ object.content }}</p>
+        {% endif %}
         </div>
     </article>
     <div class="label">Telefon do użytkownika: {{ object.author.userprofile.phone_number }}</div>
 {% endblock %}
+{% block scripts %}
+    <script>
+        $("#highlight_but").on('click', function () {
+                $.ajax({
+                        type: "POST",
+                        url: "{% url 'ajax_highlight' %}",
+                        headers: {
+                            'X-CSRFToken': $('input[name="csrfmiddlewaretoken"]').val()
+                        },
+                        data: {
+                            'announcement_id': $(this).parents("article").data("id")
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.success) {
+                                alert('Twoje ogłoszenie jest promowane')
+                            } else {
+                                alert('Błąd')
+                            }
+                        }
+                    },
+                )
+            }
+        )
+    </script>
+{% endblock %}
+
 {% block right-side %}
     <article class="side-content" style="width: 200px">
         <div class="">
@@ -31,3 +79,5 @@
         </div>
     </article>
 {% endblock %}
+
+

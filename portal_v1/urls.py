@@ -5,6 +5,8 @@ from users.views import LoginView, logout_view, ChangePassword, UserProfileView 
 from django.conf.urls.static import static
 from django.conf import settings
 from users import views as user_views
+from django.contrib.auth import views as auth_views
+from announcements import views as ann_views
 
 
 urlpatterns = [
@@ -22,6 +24,7 @@ urlpatterns = [
     path("register/", user_views.register, name="register"),
     path("change_password/", ChangePassword.as_view(), name="change_password"),
     path("search/", SearchResultsView.as_view(), name='search_result')
+    path('ajax/highlight/', ann_views.ajax_announcement_highlighting, name='ajax_highlight')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
