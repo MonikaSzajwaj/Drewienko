@@ -8,7 +8,7 @@
                 <img class="article-img rounded" style="width:20%; margin-right: 10px" src="{{ ann_item.picture.url }}">
                 <div class="media-body">
                     <div class="article-metadata">
-                        <a class="mr-2" href="{% url 'user-profile' ann_item.author.id %}">{{ ann_item.author }}</a>
+                        <a class="mr-2" href="#">{{ ann_item.author }}</a>
                         <small class="text-muted">{{ ann_item.date_posted|date:"F d, Y"}}</small>
                     </div>
                     <h2><a class="article-title" style="font-size: xx-large" href="{% url 'announcement-detail' ann_item.id %}">{{ ann_item.title }}</a></h2>
@@ -24,7 +24,7 @@
                 <img class="article-img rounded" style="width:20%; margin-right: 10px" src="{{ ann_item.picture.url }}">
                 <div class="media-body">
                     <div class="article-metadata">
-                        <a class="mr-2" href="{% url 'user-profile' ann_item.author.id %}">{{ ann_item.author }}</a>
+                        <a class="mr-2" href="#">{{ ann_item.author }}</a>
                         <small class="text-muted">{{ ann_item.date_posted|date:"F d, Y" }}</small>
                     </div>
                     <h2><a class="article-title" style="font-size: x-large"
