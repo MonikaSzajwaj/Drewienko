@@ -1,0 +1,1 @@
+Group project. Site with furniture announcements with user management.
