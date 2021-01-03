@@ -13,31 +13,6 @@ from django.views.generic import CreateView, FormView, DetailView, TemplateView,
 from .forms import SignUpForm, UserEditForm, UserProfileEditForm
 from .models import User, UserProfile
 
-# class UserEditView(FormView, LoginRequiredMixin):
-#     template_name = "portal_v1/user_profile_edit.html"
-#     form_class = UserChangeForm
-#
-#     def post(self, request, *args, **kwargs):
-#         user_change = self.form_class(request.POST)
-#         if user_change.is_valid():
-#             user_change.save()
-#             return self.render_to_response(self.get_context_data(success=True))
-#         else:
-#             return self.render_to_response(self.get_context_data(user_change=user_change))
-
-
-# class UserProfileEditView(FormView, LoginRequiredMixin):
-#     template_name = "portal_v1/user_profile_edit.html"
-#     form_class = UserProfileEditForm
-#
-#     def post(self, request, *args, **kwargs):
-#         user_profile_edit = self.form_class(request.POST)
-#         if user_profile_edit.is_valid():
-#             user_profile_edit.save()
-#             return self.render_to_response(self.get_context_data(success=True))
-#         else:
-#             return self.render_to_response(self.get_context_data(user_profile_edit=user_profile_edit))
-
 
 class UserProfileView(DetailView):
     model = UserProfile
@@ -74,17 +49,6 @@ def register(request):
     else:
         form = SignUpForm()
     return render (request, 'portal_v1/register.html', {'form': form})
-
-# class RegisterView(CreateView):
-#     template_name = "portal_v1/register.html"
-#     form_class = SignUpForm
-#
-#     def form_valid(self, form):
-#         messages.success(self.request, "Użytkownik zarejestrowany. Możesz się zalogować.")
-#         return super(RegisterView, self).form_valid(form)
-#
-#     def get_success_url(self) -> str:
-#         return reverse("login")
 
 
 
@@ -125,9 +89,6 @@ def on_user_logged_out(sender, request, **kwargs):
 def on_user_logged_in(sender, request, **kwargs):
     messages.add_message(request, messages.INFO, 'Zalogowano pomyślnie')
 
-# @receiver(user_login_failed)
-# def on_user_login_failed(sender, request, **kwargs):
-#     messages.add_message(request, messages.INFO, 'Błędna nazwa użytkownika lub hasło')
 
 @login_required
 def profile(request):
