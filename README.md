@@ -1,6 +1,6 @@
 ## General info
 * Group project developed during the course "Python from scratch" (Software Development Academy)
-* Portal with furniture announcements with user management.
+* Portal with furniture announcements and user management.
  	
 ## Technologies
 Project is created with:
